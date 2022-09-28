@@ -1,0 +1,103 @@
+\documentclass{article}
+\usepackage{amsmath} 
+\begin{document}
+\title{
+ECE 472 Robotics and Vision \\ Prof. K. Dana \\ Homework 2: Homography Estimation, Image Formation Pipeline
+}
+
+1. Write a python notebook to "image" a simple object described by vertices (e.g., a simple house) in world coordinates from the view indicated by the extrinsic matrix below. . Use command Line2D to draw the 2D lines between the projected vertices. Do not use any $3 \mathrm{~d}$ plotting commands. The projections should be handled by using the camera matrix (image formation pipeline) discussed in class.
+
+The calibration parameters are given as follows:
+
+$$
+{ }^{c} R_{w}=\left[\begin{array}{ccc}
+0.707 & 0.707 & 0 \\
+-0.707 & 0.707 & 0 \\
+0 & 0 & 1
+\end{array}\right], \quad{ }^{c} t_{w}=\left[\begin{array}{c}
+-5 \\
+0.5 \\
+4
+\end{array}\right]
+$$
+
+Therefore
+
+$$
+{ }^{c} T_{w}=\left[\begin{array}{cccc}
+0.707 & 0.707 & 0 & -5 \\
+-0.707 & 0.707 & 0 & 0.5 \\
+0 & 0 & 1 & 4
+\end{array}\right] .
+$$
+
+Also
+
+$$
+K=\left[\begin{array}{ccc}
+-100 & 0 & 200 \\
+-0 & -100 & 200 \\
+0 & 0 & 1
+\end{array}\right]
+$$
+
+2. Where is the camera in the previous question (w.r.t world coordinates)?
+
+$$
+{ }^{w} t_{c}=-1*{ }^{c} R_{w}^{T}*{ }^{c} t_{w} = -1*\left[\begin{array}{ccc}
+0.707 & -0.707 & 0 \\
+0.707 & 0.707 & 0 \\
+0 & 0 & 1
+\end{array}\right]*
+\left[\begin{array}{c}
+-5 \\
+0.5 \\
+4
+\end{array}\right]=
+\left[\begin{array}{c}
+3.8885 \\
+3.1815 \\
+-4
+\end{array}\right]
+$$
+
+
+
+3. Show the simple object from another camera view by changing the position and/or orientation of the camera. You may do this in one of the following two ways: (1) modify ${ }^{c} T_{w}$ directly, or (2) choose a "target" point to look at in world coordinates and a new position of the camera in world coordinates and follow the method in class.
+
+Coordinate Frame Transformations
+
+4. Coordinate frame $B$ is described as follows: Start with $B$ coincident with a known frame $A$. Rotate $B$ about $\hat{z}_{A}$, by $-45^{\circ}$. Translate $B$ by the vector $[1,1,0]$ (written with respect to $A)$.
+
+(a) Given ${ }^{A} P=[-1,0,4]$ what is ${ }^{B} P$ ? That is, given a point that is $[-1,0,4]$ when written with respect to the $A$ frame, what is that point written with respect to the $B$ frame?
+
+$$
+\begin{flushleft}
+{}^{B}{P} &= {}^{B}{T}_{A}\  {}^{A}{P} \\
+{}^{B}{T}_{A} &= [{}^{B}{R}_{A}\   {}^{B}{t}_{A}]\\
+{}^{B}{T}_{A} &= [{}^{A}{R}_{B}^{T}\   -1*{}^{A}{R}_{B}^{T}{}^{A}
+{t}_{B}]\\
+
+
+{}^{A}{R}_{B} &= rot(\hat{z},{-45}^{o})\
+\end{flushleft}
+$$
+
+5. Coordinate frame $B$ is described as follows: Start with $B$ coincident with a known frame $A$. Rotate $B$ about $\hat{y}_{A}$, by $90^{\circ}$. Then Rotate $B$ about $\hat{z}_{A}$ by $90^{\circ}$ Translate $B$ by the vector $[1,1,0]$ (written with respect to $A$ ).
+
+(a) What is $\hat{y}_{B}$ written with respect to the $A$ frame? (b) What is $\hat{y}_{A}$ written with respect to the $B$ frame?
+
+(c) Given ${ }^{A} P=[1,0,8]$ what is ${ }^{B} P$ ? That is, given a point that is $[1,0,8]$ when written with respect to the $A$ frame, what is that point written with respect to the $B$ frame?
+
+6. Consider Figure 1.
+
+(a) What is the the rotation matrix ${ }^{A} R_{B}$ ?
+
+(b) What is the translation vector ${ }^{A} t_{B}$ ?
+
+Figure 1: Coordinate frame A and B.
+
+7. Write a python program to estimate a homography between a frontal view and side view image of a planar surface (e.g. side of a building, sign, photo). The program input should also be corresponding point pairs (Matlab's ginput is useful here). The program should estimate the homography using the DLT method. Report the homography parameters and warp the side view image to match a frontal view of the window. An example image is provided in hpworld.png (you may use a different image). You may use an external warping function only if it takes the homography as input (e.g. skimage.transform.warp). 
+
+Figure 2: Remap the window region (left) to a frontal view (right) by estimating the appropriate homography and warping the image.
+\end{document}
