@@ -9,7 +9,7 @@ prt = pr;
 % take cross product, to find smallest segment between rays
 
 q = cross(plt,Rlr*prt);
-q = q./norm(q) % normalize it
+q = q./norm(q); % normalize it
 
 
 % Find the scalars a,b,c from this equation
