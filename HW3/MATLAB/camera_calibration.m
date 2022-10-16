@@ -32,7 +32,7 @@ originalImage = imread(imageFileNames{1});
 [mrows, ncols, ~] = size(originalImage);
 
 % Generate world coordinates for the planar pattern keypoints
-squareSize = 1;
+squareSize = 1;  % in units of 'millimeters'
 worldPoints = generateWorldPoints(detector, 'SquareSize', squareSize);
 
 % Calibrate the camera
@@ -42,9 +42,14 @@ worldPoints = generateWorldPoints(detector, 'SquareSize', squareSize);
     'InitialIntrinsicMatrix', [], 'InitialRadialDistortion', [], ...
     'ImageSize', [mrows, ncols]);
 
+% View reprojection errors
+h1=figure; showReprojectionErrors(cameraParams);
 
 % Visualize pattern locations
-h1=figure; showExtrinsics(cameraParams, 'CameraCentric');
+h2=figure; showExtrinsics(cameraParams, 'CameraCentric');
 
 % Visualize pattern locations
-h2=figure; showExtrinsics(cameraParams, 'PatternCentric');
+h3=figure; showExtrinsics(cameraParams, 'PatternCentric');
+
+% Display parameter estimation errors
+displayErrors(estimationErrors, cameraParams);
