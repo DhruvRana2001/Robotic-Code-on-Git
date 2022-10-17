@@ -42,14 +42,11 @@ worldPoints = generateWorldPoints(detector, 'SquareSize', squareSize);
     'InitialIntrinsicMatrix', [], 'InitialRadialDistortion', [], ...
     'ImageSize', [mrows, ncols]);
 
-% View reprojection errors
-h1=figure; showReprojectionErrors(cameraParams);
+% Visualize pattern locations
+h1=figure; showExtrinsics(cameraParams, 'CameraCentric');
 
 % Visualize pattern locations
-h2=figure; showExtrinsics(cameraParams, 'CameraCentric');
-
-% Visualize pattern locations
-h3=figure; showExtrinsics(cameraParams, 'PatternCentric');
+h2=figure; showExtrinsics(cameraParams, 'PatternCentric');
 
 % Display parameter estimation errors
 displayErrors(estimationErrors, cameraParams);
