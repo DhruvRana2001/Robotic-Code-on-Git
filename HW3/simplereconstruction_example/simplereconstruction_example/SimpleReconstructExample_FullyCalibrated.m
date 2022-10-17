@@ -28,10 +28,7 @@ pix = zeros(NN,3);
 for i = 1:NN
     pixels = K*Mextleft * [pts(i,1) pts(i,2) pts(i,3) 1]';
     leftpix(i,:) = pixels./pixels(3);
-    pt = [pts(i,1) pts(i,2) pts(i,3) 1]'
-    m =Mextright
-    b = Mextright * [pts(i,1) pts(i,2) pts(i,3) 1]'
-    pixels = K*Mextright * [pts(i,1) pts(i,2) pts(i,3) 1]'
+    pixels = K*Mextright * [pts(i,1) pts(i,2) pts(i,3) 1]';
     rightpix(i,:) = pixels./pixels(3);
 end
     
@@ -45,10 +42,8 @@ drawmyobject(rightpix); title('Right Image');
 
 
 %% From pixels to rays 
-
 rightray = inv(K)*[rightpix(:,1) rightpix(:,2) rightpix(:,3)]';
 leftray = inv(K)*[leftpix(:,1) leftpix(:,2) leftpix(:,3)]';
-
 
 %% STEREO RECONSTRUCTION  With known camera matrices
 
