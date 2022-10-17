@@ -1,4 +1,5 @@
 function drawmy3dobject(pts);
+pts
 xx = pts(:,1);
 yy = pts(:,2);
 zz = pts(:,3);

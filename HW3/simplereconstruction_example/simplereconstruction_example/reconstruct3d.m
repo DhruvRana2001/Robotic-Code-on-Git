@@ -7,4 +7,4 @@ wrt_left = triangulate_midpoint(leftray(:,i),rightray(:,i),Rlr,tlr);
 % convert to world coordinates
 three_d_point = Twl*[wrt_left; 1];
 reconpts(i,:) = three_d_point';
-end;
+end
